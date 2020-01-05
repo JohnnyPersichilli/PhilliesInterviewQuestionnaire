@@ -1,0 +1,45 @@
+.format-img {
+    margin-left: 5%;
+    width: 175px;
+    height: 175px;
+    border: thin solid;
+    float: left;
+    border-radius: 50%;
+    margin-right: 5%;
+  }
+
+  .profileFields {
+    height: 175px;
+  }
+  
+  .welcomeText {
+    font-size: 4vw;
+    text-align: center;
+    color: crimson;
+  }
+
+  .infoForFields {
+    font-size: calc(8px + 1.25vw);
+    color: crimson;
+  }
+
+  .headers {
+    display: flex;
+    font-weight: 700;
+    font-size: calc(8px + 1vw);
+}
+
+.sentences {
+    font-size: calc(8px+1.5vw);
+  }
+
+  .aboutMeText {
+    color: crimson;
+    text-decoration: none;
+  }
+
+  .seperate {
+    margin-left: 5%;
+    font-size: 18px;
+    color: blue;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mainstyle.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phillies Questionnaire</title>
+</head>
+
+<body>
+    <div class="welcomeText">
+        <strong><i>Phillies Questionnaire</i></strong>
+    </div><br />
+    <a href="/aboutme" class="aboutMeText sentences"><strong><i>By Johnny Persichilli</i></strong></a>
+    <h4 class="qualifyingOffer sentences">A qualifying offer would consist of the following terms:</h4>
+    <table class="formatListTable">
+        <tbody>
+        <tr class="headerCol">
+            <th class="listHeadings">Years</th>
+            <th class="listHeadings">Salary</th>
+        </tr>
+        <tr>
+            <td class="listElements">1</td>
+            <td class="listElements">${{qualifyingOffer}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="centerChildren">
+        <h4 class="qualifyingOffer sentences" id="percentileSentence">This contract is in the {{qualOfferPercentile}} percentile</h4>
+        <div class="progress-bar">
+            <span class="progress-bar-fill" style="width:95%;"><p class="percent">{{qualOfferPercentile}}%</p></span>
+        </div>
+    </div>
+
+    <p>
+        This table shows the statistics for the hitters with salaries closest to the qualifying offer of ${{qualifyingOffer}} for comparison.
+        The first row uses machine learning to predict the productivity of a hitter with a salary of the qualifyingOffer.
+    </p>
+    <div style="color:crimson;text-align: center;font-size: 2vw; margin-top: 10px">
+        <strong><i>Pitchers with comparable salaries</i></strong>
+    </div><br />
+    <table class="formatListTable">
+        <tbody>
+        <tr class="headerCol">
+            <th class="listHeadings">Name</th>
+            <th class="listHeadings">Team</th>
+            <th class="listHeadings">Salary</th>
+            <th class="listHeadings">Position</th>
+            <th class="listHeadings">ERA</th>
+            <th class="listHeadings">Wins</th>
+            <th class="listHeadings">Loses</th>
+            <th class="listHeadings">WHIP</th>
+        </tr>
+        <tr>
+            <td class="listElements">Machine Learning Estimates</td>
+            <td class="listElements">Philadelphia Phillies</td>
+            <td class="listElements">${{qualifyingOffer}}</td>
+            <td class="listElements">P</td>
+            <td class="listElements">{{predictedPitchingData['era']}}</td>
+            <td class="listElements">{{predictedPitchingData['wins']}}</td>
+            <td class="listElements">{{predictedPitchingData['losses']}}</td>
+            <td class="listElements">{{predictedPitchingData['whip']}}</td>
+        </tr>
+        {% for index in closePlayerPitchingStats %}
+        <tr>
+            <td class="listElements">
+                <a href="/player/{{index['name']}}">
+                    {{index['name']}}
+                </a>
+            </td>
+            <td class="listElements">{{index['team']}}</td>
+            <td class="listElements">${{index['salary']}}</td>
+            <td class="listElements">{{index['position']}}</td>
+            <td class="listElements">{{index['era']}}</td>
+            <td class="listElements">{{index['wins']}}</td>
+            <td class="listElements">{{index['losses']}}</td>
+            <td class="listElements">{{index['whip']}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <p>
+        This table shows the statistics for the hitters with salaries closest to the qualifying offer of ${{qualifyingOffer}} for comparison.
+        The first row uses machine learning to predict the productivity of a hitter with a salary of the qualifyingOffer.
+    </p>
+    <div style="color:crimson;text-align: center;font-size: 2vw; margin-top: 10px">
+        <strong><i>Hitters with comparable salaries</i></strong>
+    </div><br />
+    <table class="formatListTable">
+        <tbody>
+        <tr class="headerCol">
+            <th class="listHeadings">Name</th>
+            <th class="listHeadings">Team</th>
+            <th class="listHeadings">Salary</th>
+            <th class="listHeadings">Position</th>
+            <th class="listHeadings">HR</th>
+            <th class="listHeadings">RBI</th>
+            <th class="listHeadings">AVG</th>
+            <th class="listHeadings">AB</th>
+        </tr>
+        <tr>
+            <td class="listElements">Machine Learning Estimates</td>
+            <td class="listElements">Philadelphia Phillies</td>
+            <td class="listElements">${{qualifyingOffer}}</td>
+            <td class="listElements">N/A</td>
+            <td class="listElements">{{predictedHittingData['HR']}}</td>
+            <td class="listElements">{{predictedHittingData['RBI']}}</td>
+            <td class="listElements">{{predictedHittingData['AVG']}}</td>
+            <td class="listElements">{{predictedHittingData['atBats']}}</td>
+        </tr>
+        {% for index in closePlayerHittingStats %}
+        <tr>
+            <td class="listElements">
+                <a href="/player/{{index['name']}}">
+                    {{index['name']}}
+                </a>
+            </td>
+            <td class="listElements">{{index['team']}}</td>
+            <td class="listElements">${{index['salary']}}</td>
+            <td class="listElements">{{index['position']}}</td>
+            <td class="listElements">{{index['HR']}}</td>
+            <td class="listElements">{{index['RBI']}}</td>
+            <td class="listElements">{{index['AVG']}}</td>
+            <td class="listElements">{{index['atBats']}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="color:crimson;text-align: center;font-size: 2vw; margin-top: 10px">
+        <strong><i>Top 10 Salaries</i></strong>
+    </div><br />
+    <table class="formatListTable">
+        <tbody>
+        <tr class="headerCol">
+            <th class="listHeadings">Name</th>
+            <th class="listHeadings">Salary</th>
+        </tr>
+        {% for index in salarySortedDf[:9].index %}
+        <tr>
+            <td class="listElements">
+                <a href="/player/{{salarySortedDf['name'][index]}}">
+                    {{salarySortedDf['name'][index]}}
+                </a>
+            </td>
+            <td class="listElements">{{ "$%.0f" | format(salarySortedDf['salary'][index] | float) }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
