@@ -69,9 +69,17 @@ python app.py
 ```
 This will run the application on localhost:5000 so you must open your desired web browser and go to localhost:5000
 
-
-
 ---
+
+## Screenshots
+Screenshot of web applicaiton with stats of pitchers with a comparable salary, predicted production derived from machine learning for a pitcher with the given salary, the qualifying offer calculation, and percentile of the league in which this contract would place the player.
+![Screenshot of web applicaiton with comparable hitters](screenshots/WebpagePlusComparablePitchers.png)
+
+Screenshot with stats of hitters with a comparable salary and predicted production derived from machine learning for a hitter with the given salary.
+![Screenshot of web applicaiton with comparable hitters](screenshots/ComparableHitters.png)
+
+Simple about me page.
+![Screenshot of the basic about me page](screenshots/AboutMe.png)
 
 ## References
 - ReadMe references: https://www.youtube.com/watch?v=eVGEea7adDM . This resource was used to learn about the format of writing a ReadMe.
