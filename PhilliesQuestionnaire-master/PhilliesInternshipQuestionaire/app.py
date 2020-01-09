@@ -118,6 +118,7 @@ def getStatsForClosestSal(tenClosestSalaries):
                 statList =  statsapi.player_stat_data(playerID, group='[hitting]', type='season')
                 parseHittingStats(statList, nameToSearch, position, salary)
 
+#uses machine learning to get predicted htting stats based off players with similar salaries
 def getPredictedPitchingStats(qualifyingOffer):
     predictedPitchingData = {}
     closePlayerPitchingStatsDf = pd.DataFrame(closePlayerPitchingStats)
@@ -144,6 +145,7 @@ def getPredictedPitchingStats(qualifyingOffer):
 
     return predictedPitchingData
 
+#uses machine learning to get predicted htting stats based off players with similar salaries
 def getPredictedHittingStats(qualifyingOffer):
     predictedHittingData = {}
     closePlayerHittingStatsDf = pd.DataFrame(closePlayerHittingStats)
@@ -170,27 +172,32 @@ def getPredictedHittingStats(qualifyingOffer):
 
     return predictedHittingData
 
+#helper function to get predicted hitter and pitcher stats
 def getPredictedStatsForSalary(qualifyingOffer):
     predictedPitchingData = getPredictedPitchingStats(qualifyingOffer)
     predictedHittingData = getPredictedHittingStats(qualifyingOffer)
     return predictedPitchingData, predictedHittingData
 
-
 #code for main index route
 @app.route('/')
 def index():
-    #if player data is empty then scrape the data
-    if not playerData:
-        salaryURL = "https://questionnaire-148920.appspot.com/swe/data.html"
+    #clear data for reload
+    closePlayerHittingStats.clear()
+    closePlayerPitchingStats.clear()
+    playerData.clear()
 
-        salaryRes = requests.get(salaryURL, timeout=10)
+    #url to retrieve data from
+    salaryURL = "https://questionnaire-148920.appspot.com/swe/data.html"
 
-        contents = BeautifulSoup(salaryRes.content, "html.parser")
-        tableData = contents.find('table')
+    salaryRes = requests.get(salaryURL, timeout=10)
 
-        #parse the player data for each row
-        for row in tableData.findAll('tr'):
-            parsePlayerRow(row)
+    #find data table
+    contents = BeautifulSoup(salaryRes.content, "html.parser")
+    tableData = contents.find('table')
+
+    #parse the player data for each row
+    for row in tableData.findAll('tr'):
+        parsePlayerRow(row)
 
     #make a pandas df with scraped player data
     tableColumns = ['name','salary','year','level']
@@ -206,7 +213,6 @@ def index():
     #finds 10 closest salaries to the qualifying offer for comparison
     playerDf['diffToQualifing'] = abs(playerDf['salary'] - qualifyingOffer)
     tenClosestSalaries = playerDf.sort_values(by='diffToQualifing').head(15)
-    print(tenClosestSalaries)
 
     #uses the scipy module to calculate the percentile of the salary
     qualOfferPercentile = round(stats.percentileofscore(playerDf['salary'], qualifyingOffer),2)
