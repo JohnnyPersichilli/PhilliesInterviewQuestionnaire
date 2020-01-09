@@ -32,6 +32,54 @@
             <span class="progress-bar-fill" style="width:95%;"><p class="percent">{{qualOfferPercentile}}%</p></span>
         </div>
     </div>
+    
+    <p>
+        This table shows the statistics for the hitters with salaries closest to the qualifying offer of ${{qualifyingOffer}} for comparison.
+        The first row uses machine learning to predict the productivity of a hitter with a salary of the qualifyingOffer.
+    </p>
+    <div style="color:crimson;text-align: center;font-size: 2vw; margin-top: 10px">
+        <strong><i>Hitters with comparable salaries</i></strong>
+    </div><br />
+    <table class="formatListTable">
+        <tbody>
+        <tr class="headerCol">
+            <th class="listHeadings">Name</th>
+            <th class="listHeadings">Team</th>
+            <th class="listHeadings">Salary</th>
+            <th class="listHeadings">Position</th>
+            <th class="listHeadings">HR</th>
+            <th class="listHeadings">RBI</th>
+            <th class="listHeadings">AVG</th>
+            <th class="listHeadings">AB</th>
+        </tr>
+        <tr>
+            <td class="listElements">Machine Learning Estimates</td>
+            <td class="listElements">Philadelphia Phillies</td>
+            <td class="listElements">${{qualifyingOffer}}</td>
+            <td class="listElements">N/A</td>
+            <td class="listElements">{{predictedHittingData['HR']}}</td>
+            <td class="listElements">{{predictedHittingData['RBI']}}</td>
+            <td class="listElements">{{predictedHittingData['AVG']}}</td>
+            <td class="listElements">{{predictedHittingData['atBats']}}</td>
+        </tr>
+        {% for index in closePlayerHittingStats %}
+        <tr>
+            <td class="listElements">
+                <a href="/player/{{index['name']}}">
+                    {{index['name']}}
+                </a>
+            </td>
+            <td class="listElements">{{index['team']}}</td>
+            <td class="listElements">${{index['salary']}}</td>
+            <td class="listElements">{{index['position']}}</td>
+            <td class="listElements">{{index['HR']}}</td>
+            <td class="listElements">{{index['RBI']}}</td>
+            <td class="listElements">{{index['AVG']}}</td>
+            <td class="listElements">{{index['atBats']}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
     <p>
         This table shows the statistics for the hitters with salaries closest to the qualifying offer of ${{qualifyingOffer}} for comparison.
@@ -76,54 +124,6 @@
             <td class="listElements">{{index['wins']}}</td>
             <td class="listElements">{{index['losses']}}</td>
             <td class="listElements">{{index['whip']}}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <p>
-        This table shows the statistics for the hitters with salaries closest to the qualifying offer of ${{qualifyingOffer}} for comparison.
-        The first row uses machine learning to predict the productivity of a hitter with a salary of the qualifyingOffer.
-    </p>
-    <div style="color:crimson;text-align: center;font-size: 2vw; margin-top: 10px">
-        <strong><i>Hitters with comparable salaries</i></strong>
-    </div><br />
-    <table class="formatListTable">
-        <tbody>
-        <tr class="headerCol">
-            <th class="listHeadings">Name</th>
-            <th class="listHeadings">Team</th>
-            <th class="listHeadings">Salary</th>
-            <th class="listHeadings">Position</th>
-            <th class="listHeadings">HR</th>
-            <th class="listHeadings">RBI</th>
-            <th class="listHeadings">AVG</th>
-            <th class="listHeadings">AB</th>
-        </tr>
-        <tr>
-            <td class="listElements">Machine Learning Estimates</td>
-            <td class="listElements">Philadelphia Phillies</td>
-            <td class="listElements">${{qualifyingOffer}}</td>
-            <td class="listElements">N/A</td>
-            <td class="listElements">{{predictedHittingData['HR']}}</td>
-            <td class="listElements">{{predictedHittingData['RBI']}}</td>
-            <td class="listElements">{{predictedHittingData['AVG']}}</td>
-            <td class="listElements">{{predictedHittingData['atBats']}}</td>
-        </tr>
-        {% for index in closePlayerHittingStats %}
-        <tr>
-            <td class="listElements">
-                <a href="/player/{{index['name']}}">
-                    {{index['name']}}
-                </a>
-            </td>
-            <td class="listElements">{{index['team']}}</td>
-            <td class="listElements">${{index['salary']}}</td>
-            <td class="listElements">{{index['position']}}</td>
-            <td class="listElements">{{index['HR']}}</td>
-            <td class="listElements">{{index['RBI']}}</td>
-            <td class="listElements">{{index['AVG']}}</td>
-            <td class="listElements">{{index['atBats']}}</td>
         </tr>
         {% endfor %}
         </tbody>
